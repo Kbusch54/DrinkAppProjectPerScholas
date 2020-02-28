@@ -1,6 +1,5 @@
 package org.perscholas.springdrinkApp.controller;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -9,10 +8,12 @@ import javax.servlet.http.HttpSession;
 
 import org.perscholas.springdrinkApp.JpsRepository.AlcoholRepository;
 import org.perscholas.springdrinkApp.JpsRepository.CommentRepository;
+import org.perscholas.springdrinkApp.JpsRepository.LikeRepository;
 import org.perscholas.springdrinkApp.JpsRepository.StarRepository;
 import org.perscholas.springdrinkApp.entity.Account;
 import org.perscholas.springdrinkApp.entity.Alcohol;
 import org.perscholas.springdrinkApp.entity.Comment;
+import org.perscholas.springdrinkApp.entity.Like;
 import org.perscholas.springdrinkApp.entity.Star;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -36,34 +37,36 @@ public class SearchController {
 	@Autowired
 	private StarRepository str;
 	
+	@Autowired
+	private LikeRepository lkr;
+	
 	@RequestMapping("/searchMain")
 	public ModelAndView searchAll(@RequestParam("alcohol")String name, HttpSession session) {
 		ModelAndView mav = new ModelAndView("results");
+		//repository query find alcohol by name similar to
 		List<Alcohol> alcohol = alc.findByNameLKeyword(name);
+		//adding list of object to view
 		mav.addObject("alc", alcohol);
-		
+		//getting session
 		Account user = (Account)session.getAttribute("user");
+		//getting user ratings
 		List<Star> star = user.getStars();
-		Map<Long,Integer> userStar = new HashMap<Long, Integer>();
-		int starNumber =0;
+		Map<Long,Integer> userStar = new HashMap<Long,Integer>();
+		int starNumber = 0;
 		Long alcoholId = (long) 0;
 		for (Star star2 : star) {
+			//getting number of star rating made by user
 			starNumber = str.findByuserIdAndAlcoholId(star2.getUserId(), star2.getAlcoholId()).getNumber();
+			// getting alcohol Id of user star ratings made
 			alcoholId = str.findByuserIdAndAlcoholId(star2.getUserId(), star2.getAlcoholId()).getAlcoholId();
+			//putting both into hash map 
 			userStar.put(alcoholId, starNumber);
 		}
+		//adding object into view
 		mav.addObject("star", userStar);
 
 		return mav;
-	}
-	@RequestMapping("/searchAgain")
-	public ModelAndView searchAgain(@RequestParam("alcohol")String name, HttpSession session) {
-		ModelAndView mav = new ModelAndView("results");
-		List<Alcohol> alcohol = alc.findByNameLKeyword(name);
-		mav.addObject("alc", alcohol);
-		return mav;
-	}
-	
+	}	
 	@RequestMapping("/addAlcohol")
 	public void addAlc(@RequestParam("name")String name, @RequestParam("type")String type, 
 		@RequestParam("description")String description, @RequestParam("pic")String pic, HttpSession session) {
@@ -95,12 +98,21 @@ public class SearchController {
 		Long userId = acc.getId();
 		com.setUserId(userId);
 		cmr.save(com);
-		//star rating set
+		//star ratings for current user
 		List<Star> star = acc.getStars();
 		System.out.println(star.get(0));
 		for (Star star2 : star) {
 			System.out.println(star2);
 		}
+	}
+	@GetMapping("/addLike")
+	public void addLike(@RequestParam("alchId")Long id, HttpSession session) {
+		Like like = new Like();
+		like.setAlcoholId(id);
+		Account acc = new Account();
+		acc = (Account)session.getAttribute("user");
+		like.setUserId(acc.getId());
+		lkr.save(like);
 	}
 
 }

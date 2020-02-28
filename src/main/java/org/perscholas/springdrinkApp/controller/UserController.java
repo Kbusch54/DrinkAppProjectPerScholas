@@ -5,6 +5,8 @@ package org.perscholas.springdrinkApp.controller;
 
 import java.util.List;
 
+import javax.servlet.http.HttpSession;
+
 import org.perscholas.springdrinkApp.JpsRepository.AccountRepository;
 import org.perscholas.springdrinkApp.JpsRepository.LikeRepository;
 import org.perscholas.springdrinkApp.entity.Account;
@@ -29,11 +31,19 @@ public class UserController {
 	private LikeRepository lkr;
 	
 	@RequestMapping("/userPage")
-	public ModelAndView userPage(@RequestParam("id")Long id) {
+	public ModelAndView userPage(@RequestParam("id")Long id, HttpSession session) {
+		//other user page of none current account
 		ModelAndView mav = new ModelAndView("user");
+		if(id!=null) {
 		Account aa = acc.findByid(id);
 		System.out.println(aa.getUser_Name());
 		mav.addObject("account", aa);
+		
+		//user page 
+		}else {
+			Account ac = (Account) session.getAttribute("user");
+			mav.addObject("account",ac);
+		}
 		return mav;
 	}
 	@RequestMapping("/favorites")

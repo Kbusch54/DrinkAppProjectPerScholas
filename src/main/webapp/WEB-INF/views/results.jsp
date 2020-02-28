@@ -61,7 +61,7 @@
 </head>
 <body>
 	<h1>Results</h1>
-	<form action="searchAgain">
+	<form action="searchMain">
 		<input type="text" placeholder="Search.." name="alcohol">
 		<button type="submit">Search</button>
 	</form>
@@ -108,6 +108,12 @@
 			
 			<br>
 			Star:${alcohol.getRating(alcohol.id) }
+			<button onclick="addLike"></button>
+			<form:form action="addLike" method="get">
+			<label for="alchId">Alcohol</label>
+			<input type="hidden" id="alchId" name ="alchId" value="${alcohol.id }">
+			<input type="submit" value="add Like">
+			</form:form>
 			Likes:${alcohol.getLikes(alcohol.id) }
 			<c:choose>
 						<c:when test="${star.get(alcohol.id) != null}">
@@ -168,9 +174,7 @@
 				x.style.display = "block";
 			}
 		}
-		function decision(){
-			
-		}
+
 	</script>
 </body>
 </html>
