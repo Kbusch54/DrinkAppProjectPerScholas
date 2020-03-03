@@ -4,6 +4,10 @@
 <!DOCTYPE html>
 <html>
 <head>
+  <link href="./css/bootstrap.min.css" type="text/css" rel="stylesheet"/>
+    <script src="./js/jquery.min.js" type="text/javascript"></script>
+    <script src="./js/popper.min.js" type="text/javascript"></script>
+    <script src="./js/bootstrap.min.js" type="text/javascript"></script>
 <style>
 .largeBox {
 	background-color: lightgrey;

@@ -3,7 +3,6 @@ package org.perscholas.springdrinkApp.entity;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -21,6 +20,7 @@ import javax.persistence.TemporalType;
  * The persistent class for the alcohol database table.
  * 
  */
+
 @Entity
 @Table(name="Alcohol")
 public class Alcohol implements Serializable {

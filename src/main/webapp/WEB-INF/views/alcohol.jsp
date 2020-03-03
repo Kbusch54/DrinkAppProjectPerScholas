@@ -5,17 +5,11 @@
 <!DOCTYPE html>
 <html>
 <head>
-<!--   <link href="./css/bootstrap.min.css" type="text/css" rel="stylesheet"/>
+  <link href="./css/bootstrap.min.css" type="text/css" rel="stylesheet"/>
     <script src="./js/jquery.min.js" type="text/javascript"></script>
     <script src="./js/popper.min.js" type="text/javascript"></script>
-    <script src="./js/bootstrap.min.js" type="text/javascript"></script> -->
+    <script src="./js/bootstrap.min.js" type="text/javascript"></script>
 <style>
-.man {
-    min-height:600px;
-    background-image: url("car1.jpeg");
-    background-size: cover;
-    text-align: center;
-}
 .largeBox {
 	background-color: lightgrey;
 	width: 60%;
@@ -70,20 +64,17 @@
 <title>Insert title here</title>
 </head>
 <body>
-<div class="man">
-
 	<h1>Results</h1>
 	<form action="searchMain">
 		<input type="text" placeholder="Search.." name="alcohol">
 		<button type="submit">Search</button>
 	</form>
 
-
+	
 	<!--Start of box  -->
-	<c:forEach var="alcohol" items="${alc}">
 
+	
 		<div class="largeBox">
-			<a href="alcoholSelect?alcId=${alcohol.id }">${alcohol.name }</a>
 			<div class="picBox">
 				<div class="pic">
 					<c:choose>
@@ -104,7 +95,7 @@
 					</div>
 				</c:when>
 				<c:otherwise>
-					
+					<div></div>
 				</c:otherwise>
 			</c:choose>
 			<!--Category search  -->
@@ -162,7 +153,7 @@
 							User Rating: 0
 						</c:otherwise>
 			</c:choose>
-<%-- 
+
 
 
 			<!--Alcohol Comments  -->
@@ -198,9 +189,9 @@
 							id="alchId" name="alchId" value="${alcohol.id }"> <label
 							for="text">Text:</label> <input type="text" id="text" name="text">
 						<br> <input type="submit" value="Add Comment">
-					</form> --%>
+					</form>
 
-					<%-- <form:form action="addComment" method="get">
+					<form:form action="addComment" method="get">
 						<label for="alchId">Alcohol</label>
 						<input type="hidden" id="alchId" name="alchId"
 							value="${alcohol.id }">
@@ -208,12 +199,12 @@
 						<input type="text" id="text" name="text">
 						<br>
 						<input type="submit" value="Add Comment">
-					</form:form> --%>
+					</form:form>
 				</div>
 
-			
-	</c:forEach>
-		
+			</div>
+		</div>
+	
 
 
 	<!-- New alcohol  -->
@@ -239,31 +230,6 @@
 		<br>
 		<input type="submit" value="Add">
 	</form:form>
-	</div>
-	<script type="text/javascript">
-		/* function commentButton() {
-			var x = document.getElementById("addComment");
-			if (x.style.display === "block") {
-				x.style.display = "none";
-			} else {
-				x.style.display = "block";
-			}
-		} */
-		
-		//Array of images which you want to show: Use path you want.
-		var images=new Array('car1.jpeg','car2.jpeg','car3.jpeg');
-		var nextimage=0;
-		doSlideshow();
 
-		function doSlideshow(){
-		    if(nextimage>=images.length){nextimage=0;}
-		    $('.body')
-		    .css('background-image','url("'+images[nextimage++]+'")')
-		    .fadeIn(500,function(){
-		        setTimeout(doSlideshow,1000);
-		    });
-		}
-		
-	</script>
 </body>
 </html>

@@ -127,8 +127,7 @@ public class Comment implements Serializable {
 
 	@Override
 	public String toString() {
-		return "text=" + text + ", userId=" + userId + ", account="
-				+ account.getUser_Name() + account.getStars().toString()+"Likes"+getLikes(id);
+		return account.getUser_Name() + text +  userId + ", Stars " + account.getStars().toString()+"Likes"+getLikes(id);
 	}
 
 	@Override

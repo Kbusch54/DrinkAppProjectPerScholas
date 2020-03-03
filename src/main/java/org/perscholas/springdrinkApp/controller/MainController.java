@@ -103,7 +103,9 @@ public class MainController {
 				user.setFirst_Name(firstName);
 				user.setLName(lastName);
 				acc.save(user);
-				ModelAndView nmv = new ModelAndView("main");
+				
+				ModelAndView nmv = new ModelAndView("index");
+				
 				return nmv;
 			}
 		}
