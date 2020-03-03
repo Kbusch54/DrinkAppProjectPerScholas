@@ -52,13 +52,21 @@ public class SearchController {
 	private AccountRepository acc;
 
 	@RequestMapping("/alcoholSelect")
-	public ModelAndView alcSelect(@RequestParam("alcId") Long id, HttpSession session) {
+	public ModelAndView alcSelect(@RequestParam("alcId") Long alcId, HttpSession session) {
 		ModelAndView mav = new ModelAndView("alcohol");
-		Optional<Alcohol> alcohol = alc.findById(id);
+		Optional<Alcohol> alcohol = alc.findById(alcId);
 		Alcohol alc =alcohol.get();
 		mav.addObject("alcohol", alc);
 		// getting session
 		Account user = (Account) session.getAttribute("user");
+		if(cmr.findByalcoholId(alcId)!=null) {
+		List<Comment>com= cmr.findByalcoholId(alcId);
+		mav.addObject("comment", com);
+		}
+		
+		
+		
+		
 		return mav;
 //		
 //		//category by alcohol Id
@@ -74,30 +82,7 @@ public class SearchController {
 //		}
 //		mav.addObject("cate", categ);
 //		
-//		//comment grab
-//		ArrayList<Comment> com = new ArrayList<>();
-//		List<String> comText = new ArrayList<>();
-//		List<String> comUN = new ArrayList<>();
-//		List<Comment> comm = new ArrayList<>();
-//		Map<Long, List<String>> commentText = new HashMap<>();
-//		Map<Long, List<String>> commentUserName = new HashMap<>();
-//		Map<Long, List<Comment>> comment = new HashMap<>();
-//		
-//			com = (cmr.findByalcoholId(alcohol.get().getId()));
-//			for (Comment com2 : com) {
-//				comText.add(com2.getText());
-//				commentText.put(com2.getAlcohol().getId(), comText);
-//				comUN.add(acc.findById(com2.getUserId()).get().getUser_Name());
-//				commentUserName.put(com2.getAlcoholId(), comUN);
-//				
-//				comm.add(com2);
-//				
-//				comment.put(com2.getAlcoholId(), comm);
-//			}
-//		
-//		mav.addObject("commentText", commentText);
-//		mav.addObject("commentUN", commentUserName);
-//		mav.addObject("comments", comment);		
+	
 //				
 //		//For user like true or false
 //		List<Like> likes = user.getLikes();
@@ -161,30 +146,7 @@ public class SearchController {
 		}
 		mav.addObject("cate", categ);
 
-		// comment grab
-		ArrayList<Comment> com = new ArrayList<>();
-		List<String> comText = new ArrayList<>();
-		List<String> comUN = new ArrayList<>();
-		List<Comment> comm = new ArrayList<>();
-		Map<Long, List<String>> commentText = new HashMap<>();
-		Map<Long, List<String>> commentUserName = new HashMap<>();
-		Map<Long, List<Comment>> comment = new HashMap<>();
-		for (Alcohol alcohol2 : alcohol) {
-			com = (cmr.findByalcoholId(alcohol2.getId()));
-			for (Comment com2 : com) {
-				comText.add(com2.getText());
-				commentText.put(com2.getAlcohol().getId(), comText);
-				comUN.add(acc.findById(com2.getUserId()).get().getUser_Name());
-				commentUserName.put(com2.getAlcoholId(), comUN);
-
-				comm.add(com2);
-
-				comment.put(com2.getAlcoholId(), comm);
-			}
-		}
-		mav.addObject("commentText", commentText);
-		mav.addObject("commentUN", commentUserName);
-		mav.addObject("comments", comment);
+		
 
 		// For user like true or false
 		List<Like> likes = user.getLikes();
@@ -224,14 +186,16 @@ public class SearchController {
 		return mav;
 	}
 
-	@RequestMapping("/addAlcohol")
-	public void addAlc(@RequestParam("name") String name, @RequestParam("type") String type,
+	@SuppressWarnings("unused")
+	@RequestMapping("/addAlcohols")
+	public ModelAndView addAlc(@RequestParam("name") String name, @RequestParam("type") String type,
 			@RequestParam("description") String description, @RequestParam("pic") String pic, HttpSession session) {
+		ModelAndView mav = new ModelAndView("main");
 		Alcohol alch = new Alcohol();
 		alch.setName(name);
 		alch.setType(type);
 		alch.setDescription(description);
-		if (pic != null) {
+		if (!pic.equalsIgnoreCase("") || pic!=null) {
 			alch.setPic(pic);
 		} else {
 			alch.setPic(null);
@@ -242,6 +206,7 @@ public class SearchController {
 			alch.setUserId(acco.getId());
 		}
 		alc.save(alch);
+		return mav;
 	}
 
 	@GetMapping("/addComment")
@@ -277,6 +242,13 @@ public class SearchController {
 			System.out.println("already liked");
 		}
 	}
+	@GetMapping("/removeLike")
+	public void removeLike(@RequestParam("alchId") Long id, HttpSession session) {
+		Account acco = (Account)session.getAttribute("user");
+		
+		lkr.RemoveByuserIdAndAlcoholId(acco.getId(), id);
+		
+	}
 
 	@RequestMapping("/categorySearch")
 	public ModelAndView serachCat(@RequestParam("catName") String name, HttpSession session) {
@@ -301,31 +273,7 @@ public class SearchController {
 		}
 		mav.addObject("cate", categ);
 
-		// comment grab
-		ArrayList<Comment> com = new ArrayList<>();
-		List<String> comText = new ArrayList<>();
-		List<String> comUN = new ArrayList<>();
-		List<Comment> comm = new ArrayList<>();
-		Map<Long, List<String>> commentText = new HashMap<>();
-		Map<Long, List<String>> commentUserName = new HashMap<>();
-		Map<Long, List<Comment>> comment = new HashMap<>();
-		for (Alcohol alcohol2 : alcohol) {
-			com = (cmr.findByalcoholId(alcohol2.getId()));
-			for (Comment com2 : com) {
-				comText.add(com2.getText());
-				commentText.put(com2.getAlcohol().getId(), comText);
-				comUN.add(acc.findById(com2.getUserId()).get().getUser_Name());
-				commentUserName.put(com2.getAlcoholId(), comUN);
-
-				comm.add(com2);
-
-				comment.put(com2.getAlcoholId(), comm);
-			}
-		}
-		mav.addObject("commentText", commentText);
-		mav.addObject("commentUN", commentUserName);
-		mav.addObject("comments", comment);
-
+		
 		// For user like true or false
 		List<Like> likes = user.getLikes();
 		Map<Long, Integer> userLike = new HashMap<Long, Integer>();

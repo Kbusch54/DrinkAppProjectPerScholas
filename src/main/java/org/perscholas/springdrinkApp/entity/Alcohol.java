@@ -267,8 +267,7 @@ public class Alcohol implements Serializable {
 	}
 	public String getUserName(Long id) {
 		Account acc = new Account();
-		String r ="";
-		r=acc.getUserNameById(id);
+		String r=acc.getUserNameById(id);
 		return r;
 	}
 	@Override

@@ -5,11 +5,49 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <link href="./css/bootstrap.min.css" type="text/css" rel="stylesheet"/>
-    <script src="./js/jquery.min.js" type="text/javascript"></script>
-    <script src="./js/popper.min.js" type="text/javascript"></script>
-    <script src="./js/bootstrap.min.js" type="text/javascript"></script>
+<link href="./css/bootstrap.min.css" type="text/css" rel="stylesheet" />
+<script src="./js/jquery.min.js" type="text/javascript"></script>
+<script src="./js/popper.min.js" type="text/javascript"></script>
+<script src="./js/bootstrap.min.js" type="text/javascript"></script>
+<link rel="stylesheet"
+	href="https://use.fontawesome.com/releases/v5.3.1/css/all.css"
+	integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU"
+	crossorigin="anonymous">
 <style>
+body, html {
+	height: 100%;
+	margin: 0;
+}
+
+.image {
+	background-image: url("car1.jpeg");
+	height: 60%;
+	/* Center and scale the image nicely */
+	background-position: center;
+	background-repeat: no-repeat;
+	background-size: cover;
+}
+
+.text {
+	top: 20%;
+	text-align: center;
+	position: absolute;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	color: white;
+	text-align: center;
+}
+
+.search {
+	width: 70%;
+	height: 10%;
+}
+
+.btn {
+	width: 15%;
+	height: 10%;
+}
+
 .largeBox {
 	background-color: lightgrey;
 	width: 60%;
@@ -59,177 +97,175 @@
 	padding: 5%;
 	margin: 10%;
 }
+
+#indCom {
+	border: 3px solid black;
+	margin: 2%;
+}
 </style>
 <meta charset="UTF-8">
 <title>Insert title here</title>
 </head>
 <body>
-	<h1>Results</h1>
-	<form action="searchMain">
-		<input type="text" placeholder="Search.." name="alcohol">
-		<button type="submit">Search</button>
-	</form>
+<%@include file="/html/header.html" %> 
+	<div class="image">
+		<div class="text">
 
-	
+			<h1 style="color: white">Search</h1>
+			<form action="searchMain">
+				<input type="text" placeholder="Search" name="alcohol"
+					class="search">
+
+				<button type="submit" class="btn">
+					<i class="fas fa-cocktail"></i>
+				</button>
+			</form>
+		</div>
+	</div>
+
+
 	<!--Start of box  -->
 
-	
-		<div class="largeBox">
-			<div class="picBox">
-				<div class="pic">
-					<c:choose>
-						<c:when test="${alcohol.pic != null}">
-							<img src="${alcohol.pic }" class="alcoholPic">
-						</c:when>
-						<c:otherwise>
-							<img src="broken_image.jpg" class="alcoholPic">
-						</c:otherwise>
-					</c:choose>
 
-				</div>
+	<div class="largeBox">
+		<div class="picBox">
+			<div class="pic">
+				<c:choose>
+					<c:when test="${alcohol.pic != null}">
+						<img src="${alcohol.pic }" class="alcoholPic">
+					</c:when>
+					<c:otherwise>
+						<img src="broken_image.jpg" class="alcoholPic">
+					</c:otherwise>
+				</c:choose>
+
 			</div>
-			<c:choose>
-				<c:when test="${alcohol.userId != null}">
-					<div>
-						<a href="userPage?id=${alcohol.userId }">User page</a>
-					</div>
-				</c:when>
-				<c:otherwise>
-					<div></div>
-				</c:otherwise>
-			</c:choose>
-			<!--Category search  -->
-			<c:choose>
-				<c:when test="${cate.get(alcohol.id) != null}">
+		</div>
+		<c:choose>
+			<c:when test="${alcohol.userId != null}">
+				<div>
+					<a href="userPage?id=${alcohol.userId }">User page</a>
+				</div>
+			</c:when>
+			<c:otherwise>
+				<div></div>
+			</c:otherwise>
+		</c:choose>
+		<!--Category search  -->
+		<c:choose>
+			<c:when test="${cate.get(alcohol.id) != null}">
 							Category:
 							 <a href="categorySearch?catName=${cate.get(alcohol.id)}">${cate.get(alcohol.id)}</a>
 
-				</c:when>
-				<c:otherwise>
+			</c:when>
+			<c:otherwise>
 							No Category
 						</c:otherwise>
-			</c:choose>
+		</c:choose>
 
-			<div class="name">
-				<H2>${alcohol.name }</H2>
-				${alcohol.id }
-			</div>
+		<div class="name">
+			<H2>${alcohol.name }</H2>
+			${alcohol.id }
+		</div>
 
-			<div class="descr">${alcohol.description}</div>
-			<c:forEach var="star" items="${userRating}">
+		<div class="descr">${alcohol.description}</div>
+		<c:forEach var="star" items="${userRating}">
 			Star by User: ${star.number }	
 			</c:forEach>
 
 
 
-			<!-- Alcohol ratings  -->
+		<!-- Alcohol ratings  -->
 
-			<br> Star:${alcohol.getRating(alcohol.id) }
-			<button onclick="addLike"></button>
-			<form:form action="addLike" method="get">
-				<label for="alchId">Alcohol</label>
-				<input type="hidden" id="alchId" name="alchId"
-					value="${alcohol.id }">
-				<input type="submit" value="add Like">
-			</form:form>
-			<c:choose>
-				<c:when test="${like.get(alcohol.id) != null}">
+		<br> Star:${alcohol.getRating(alcohol.id) }
+		<button onclick="addLike"></button>
+		<form:form action="addLike" method="get">
+			<label for="alchId">Alcohol</label>
+			<input type="hidden" id="alchId" name="alchId" value="${alcohol.id }">
+			<input type="submit" value="add Like">
+		</form:form>
+		<c:choose>
+			<c:when test="${like.get(alcohol.id) != null}">
 							User like: ${like.get(alcohol.id)}
 						</c:when>
-				<c:otherwise>
+			<c:otherwise>
 							User Likes: 0
 						</c:otherwise>
-			</c:choose>
+		</c:choose>
 
 
-			<!--Alcohol Likes  -->
+		<!--Alcohol Likes  -->
 
-			Likes:${alcohol.getLikes(alcohol.id) }
-			<c:choose>
-				<c:when test="${star.get(alcohol.id) != null}">
+		Likes:${alcohol.getLikes(alcohol.id) }
+		<c:choose>
+			<c:when test="${star.get(alcohol.id) != null}">
 							User rating: ${star.get(alcohol.id)}
 						</c:when>
-				<c:otherwise>
+			<c:otherwise>
 							User Rating: 0
 						</c:otherwise>
+		</c:choose>
+
+
+
+		<!--Alcohol Comments  -->
+
+		<div class="comment">
+
+			<c:choose>
+
+				<c:when test="${comment != null}">
+
+					<c:forEach items="${comment}" var="comm">
+
+						<div class="container">
+							<div class="row" id="indCom">
+								<div class="col-12 col-sm-8">
+									<a href="userPage?id=${comm.getAccount().getId()}">${comm.getAccount().getUser_Name()}</a></div>
+								<div class="col-12 col-sm-8" >
+								${comm.getText() }
+								</div>
+							</div>
+						</div>
+					</c:forEach>
+
+				</c:when>
+				<c:otherwise>
+					No Comment
+					</c:otherwise>
 			</c:choose>
 
 
 
-			<!--Alcohol Comments  -->
+			<!--New comment form  -->
 
-			<div class="comment">
+			<div>
+				New Comment
+				<iframe name="commentFrame" id="commentFrame" style="display: none;"></iframe>
 
-				<c:choose>
+				<form action="addComment" target="commentFrame" method="get">
+					<!-- form body here -->
+					<label for="alchId">Alcohol</label> <input type="hidden"
+						id="alchId" name="alchId" value="${alcohol.id }"> <label
+						for="text">Text:</label> <input type="text" id="text" name="text">
+					<br> <input type="submit" value="Add Comment">
+				</form>
 
-					<c:when test="${commentText.get(alcohol.id) != null}">
-						${commentText.get(alcohol.id)}
-							<c:forEach items="${comments.get(alcohol.id)}" var="comm">
-							${comm.getAccount().getUser_Name()}
-							${comm.getText() }
-							</c:forEach>
-						
-					</c:when>
-					<c:otherwise>
-					No Comment
-					</c:otherwise>
-				</c:choose>
-
-
-
-				<!--New comment form  -->
-
-				<div>
-					New Comment
-					<iframe name="commentFrame" id="commentFrame" style="display: none;"></iframe>
-
-					<form action="addComment" target="commentFrame" method="get">
-						<!-- form body here -->
-						<label for="alchId">Alcohol</label> <input type="hidden"
-							id="alchId" name="alchId" value="${alcohol.id }"> <label
-							for="text">Text:</label> <input type="text" id="text" name="text">
-						<br> <input type="submit" value="Add Comment">
-					</form>
-
-					<form:form action="addComment" method="get">
-						<label for="alchId">Alcohol</label>
-						<input type="hidden" id="alchId" name="alchId"
-							value="${alcohol.id }">
-						<label for="text">Text:</label>
-						<input type="text" id="text" name="text">
-						<br>
-						<input type="submit" value="Add Comment">
-					</form:form>
-				</div>
-
+			
 			</div>
+
 		</div>
+	</div>
+
+
+
 	
-
-
-	<!-- New alcohol  -->
-	<form:form action="addAlcohol" method="get">
-		<label for="name">Name:</label>
-		<input type="text" id="name" name="name">
-		<br>
-		<label for="description">Description:</label>
-		<input type="text" id="description" name="description"
-			style="width: 150px; height: 100px;">
-		<br>
-		<label for="pic">Picture:</label>
-		<input type="pic" id="pic" name="pic">
-		<br>
-
-		<br>
-		<label for="type">Choose a type:</label>
-		<select id="type" name="type">
-			<option value="beer">Beer</option>
-			<option value="spirit">Spirit</option>
-			<option value="recipe">Recipe</option>
-		</select>
-		<br>
-		<input type="submit" value="Add">
-	</form:form>
-
+	<script
+		src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+	<script
+		src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+	<script src="./js/jquery.min.js" type="text/javascript"></script>
+	<script src="./js/popper.min.js" type="text/javascript"></script>
+	<script src="./js/bootstrap.min.js" type="text/javascript"></script>
 </body>
 </html>

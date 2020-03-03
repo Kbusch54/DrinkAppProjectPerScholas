@@ -20,8 +20,6 @@
 	
 	<style>
 		:root {
- 	    /* --body_gradient_left:#BFBFBF;
-        --body_gradient_right: #F7FFF7;  */
         --form_bg: #BFBFBF;
         --input_hover: #BFBFBF;
         --input_bg:#F7FFF7;
@@ -35,13 +33,30 @@
         box-sizing: border-box;
     }
     body {
-        height: 100vh;
+        height: 100%;
         font-family: 'Roboto',sans-serif;
-        background-image: linear-gradient(to right, var(--body_gradient_left), var(--body_gradient_right)); 
-        display:flex;
-    }
+        background-image: background-image: url("car4.jpeg");
 
+  /* Full height */
+  height: 50%; 
+
+  /* Center and scale the image nicely */
+  background-position: center;
+  background-repeat: no-repeat;
+  
+        /* linear-gradient(to right, var(--body_gradient_left), var(--body_gradient_right)); 
+        display:flex; */
+ 
+  /* The image used */
+  background-image: url("car4.jpeg");
+
+  /* Full height */
+  height: 30%; 
+  background-size: cover;
+
+  }
     #form_wrapper {
+        opacity:0.8;
         width: 1000px;
         height: 700px;
         margin:auto;
@@ -173,6 +188,7 @@
 </head>
 <body>
 
+<div id="bg"></div>
 <div id="form_wrapper">
             <div id="form_left">
                 <img src="car3.jpeg" alt="noProfile.jpg">
@@ -207,6 +223,10 @@
                
             </div>
         </div>
-
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>  
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+  <script src="./js/jquery.min.js" type="text/javascript"></script>
+<script src="./js/popper.min.js" type="text/javascript"></script>
+<script src="./js/bootstrap.min.js" type="text/javascript"></script>
 </body>
 </html>

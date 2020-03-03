@@ -29,6 +29,9 @@ public interface AlcoholRepository extends JpaRepository<Alcohol, Long>{
 	List<Alcohol> findByCatName(String name);
 	
 	Optional<Alcohol> findById(Long id);
+	
+//	@Query(value="SELECT distinct a.id FROM alcohol a inner join account acc on a.user_id = acc.id inner join likes l on acc.id = l.user_id where acc.id = ?1;", nativeQuery=true)
+//	List<Long> findLikesOfUserById(Long id);
 
 	
 }

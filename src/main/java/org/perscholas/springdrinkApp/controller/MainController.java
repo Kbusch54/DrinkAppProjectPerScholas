@@ -60,6 +60,11 @@ public class MainController {
 		}
 		return mav;
 	}
+	@RequestMapping("/backMain")
+	public ModelAndView backToMain() {
+		ModelAndView mav = new ModelAndView("main");
+		return mav;
+	}
 
 	@RequestMapping(value = "/createAccount")
 	public ModelAndView newAccount() {

@@ -5,23 +5,56 @@
 <!DOCTYPE html>
 <html>
 <head>
-<!--   <link href="./css/bootstrap.min.css" type="text/css" rel="stylesheet"/>
-    <script src="./js/jquery.min.js" type="text/javascript"></script>
-    <script src="./js/popper.min.js" type="text/javascript"></script>
-    <script src="./js/bootstrap.min.js" type="text/javascript"></script> -->
+<link href="./css/bootstrap.min.css" type="text/css" rel="stylesheet" />
+<script src="./js/jquery.min.js" type="text/javascript"></script>
+<script src="./js/popper.min.js" type="text/javascript"></script>
+<script src="./js/bootstrap.min.js" type="text/javascript"></script>
+<link rel="stylesheet"
+	href="https://use.fontawesome.com/releases/v5.3.1/css/all.css"
+	integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU"
+	crossorigin="anonymous">
 <style>
-.man {
-    min-height:600px;
-    background-image: url("car1.jpeg");
-    background-size: cover;
-    text-align: center;
-}
 .largeBox {
 	background-color: lightgrey;
-	width: 60%;
+	width: 70%;
 	border: 10px solid green;
 	padding: 5%;
 	margin: 10%;
+	opacity: 0.7;
+	left: 50%;
+}
+
+body, html {
+	height: 100%;
+	margin: 0;
+}
+
+.image {
+	background-image: url("car1.jpeg");
+	height: 60%;
+	/* Center and scale the image nicely */
+	background-position: center;
+	background-repeat: no-repeat;
+	background-size: cover;
+}
+
+.text {
+	top: 20%; text-align : center;
+	position: absolute;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	color: white;
+	text-align: center;
+}
+
+.search {
+	width: 70%;
+	height: 10%;
+}
+
+.btn {
+	width: 15%;
+	height: 10%;
 }
 
 .picBox {
@@ -45,9 +78,8 @@
 .name {
 	background-color: lightgrey;
 	width: 60%;
-	border: 10px solid blue;
-	padding: 5%;
-	margin: 10%;
+	padding: 1%;
+	font-size: 110%;
 }
 
 .descr {
@@ -66,24 +98,57 @@
 	margin: 10%;
 }
 </style>
-<meta charset="UTF-8">
+<meta charset="UTF-8" name="viewport"
+	content="width=device-width, initial-scale=1">
 <title>Insert title here</title>
 </head>
 <body>
-<div class="man">
+<%@include file="/html/header.html" %> 
 
-	<h1>Results</h1>
-	<form action="searchMain">
-		<input type="text" placeholder="Search.." name="alcohol">
-		<button type="submit">Search</button>
-	</form>
+	<div class="image">
+		<div class="text">
 
+			<h1 style="color: white">Search</h1>
+			<form action="searchMain">
+				<input type="text" placeholder="Search" name="alcohol"
+					class="search">
+
+				<button type="submit" class="btn">
+					<i class="fas fa-cocktail"></i>
+				</button>
+			</form>
+		</div>
+	</div>
 
 	<!--Start of box  -->
 	<c:forEach var="alcohol" items="${alc}">
 
 		<div class="largeBox">
-			<a href="alcoholSelect?alcId=${alcohol.id }">${alcohol.name }</a>
+			<c:choose>
+				<c:when test="${alcohol.userId != null}">
+					<div class="name">
+						<a href="alcoholSelect?alcId=${alcohol.id }">${alcohol.name }</a>
+					</div>
+				</c:when>
+				<c:otherwise>
+
+				</c:otherwise>
+			</c:choose>
+
+
+
+
+			<!-- fix -->
+			<a href="userPage?id=${alcohol.userId }">${alcohol.getUserName(alcohol.userId) }</a>
+			<c:forEach var="star" items="${userRating}">
+			Star by User: ${star.number }	
+			</c:forEach>
+
+
+
+			<!-- Alcohol ratings  -->
+
+			<br> Star:${alcohol.getRating(alcohol.id) }
 			<div class="picBox">
 				<div class="pic">
 					<c:choose>
@@ -97,15 +162,51 @@
 
 				</div>
 			</div>
+
+
+
+
+			<div class="descr">${alcohol.description}</div>
+			
+			<!-- Likes -->
+			
+			
+			
 			<c:choose>
-				<c:when test="${alcohol.userId != null}">
-					<div>
-						<a href="userPage?id=${alcohol.userId }">User page</a>
-					</div>
-				</c:when>
+				<c:when test="${like.get(alcohol.id) != null}">
+				<button onclick="removeLike"><i class="fas fa-heart"></i></button>
+							<!-- <img src="like.png" class="like"> -->
+			<form:form action="removeLike" method="get">
+				<label for="alchId">Alcohol</label>
+				<input type="hidden" id="alchId" name="alchId"
+					value="${alcohol.id }">
+				<input type="submit" value="removeLike">
+			</form:form>
+						</c:when>
 				<c:otherwise>
-					
-				</c:otherwise>
+
+				<button onclick="addLike"><i class="far fa-heart"></i></button>
+							<!-- <img src="nolike.png" class="like"> -->
+			<form:form action="addLike" method="get">
+				<label for="alchId">Alcohol</label>
+				<input type="hidden" id="alchId" name="alchId"
+					value="${alcohol.id }">
+				<input type="submit" value="add Like">
+			</form:form>
+						</c:otherwise>
+			</c:choose>
+
+
+			<!--Alcohol Likes  -->
+			Likes:${alcohol.getLikes(alcohol.id) }
+
+			<c:choose>
+				<c:when test="${star.get(alcohol.id) != null}">
+							User rating: ${star.get(alcohol.id)}
+						</c:when>
+				<c:otherwise>
+							User Rating: 0
+						</c:otherwise>
 			</c:choose>
 			<!--Category search  -->
 			<c:choose>
@@ -118,51 +219,7 @@
 							No Category
 						</c:otherwise>
 			</c:choose>
-
-			<div class="name">
-				<H2>${alcohol.name }</H2>
-				${alcohol.id }
-			</div>
-
-			<div class="descr">${alcohol.description}</div>
-			<c:forEach var="star" items="${userRating}">
-			Star by User: ${star.number }	
-			</c:forEach>
-
-
-
-			<!-- Alcohol ratings  -->
-
-			<br> Star:${alcohol.getRating(alcohol.id) }
-			<button onclick="addLike"></button>
-			<form:form action="addLike" method="get">
-				<label for="alchId">Alcohol</label>
-				<input type="hidden" id="alchId" name="alchId"
-					value="${alcohol.id }">
-				<input type="submit" value="add Like">
-			</form:form>
-			<c:choose>
-				<c:when test="${like.get(alcohol.id) != null}">
-							User like: ${like.get(alcohol.id)}
-						</c:when>
-				<c:otherwise>
-							User Likes: 0
-						</c:otherwise>
-			</c:choose>
-
-
-			<!--Alcohol Likes  -->
-
-			Likes:${alcohol.getLikes(alcohol.id) }
-			<c:choose>
-				<c:when test="${star.get(alcohol.id) != null}">
-							User rating: ${star.get(alcohol.id)}
-						</c:when>
-				<c:otherwise>
-							User Rating: 0
-						</c:otherwise>
-			</c:choose>
-<%-- 
+			<%-- 
 
 
 			<!--Alcohol Comments  -->
@@ -200,7 +257,7 @@
 						<br> <input type="submit" value="Add Comment">
 					</form> --%>
 
-					<%-- <form:form action="addComment" method="get">
+			<%-- <form:form action="addComment" method="get">
 						<label for="alchId">Alcohol</label>
 						<input type="hidden" id="alchId" name="alchId"
 							value="${alcohol.id }">
@@ -209,37 +266,15 @@
 						<br>
 						<input type="submit" value="Add Comment">
 					</form:form> --%>
-				</div>
+		</div>
 
-			
+
 	</c:forEach>
-		
 
 
-	<!-- New alcohol  -->
-	<form:form action="addAlcohol" method="get">
-		<label for="name">Name:</label>
-		<input type="text" id="name" name="name">
-		<br>
-		<label for="description">Description:</label>
-		<input type="text" id="description" name="description"
-			style="width: 150px; height: 100px;">
-		<br>
-		<label for="pic">Picture:</label>
-		<input type="pic" id="pic" name="pic">
-		<br>
 
-		<br>
-		<label for="type">Choose a type:</label>
-		<select id="type" name="type">
-			<option value="beer">Beer</option>
-			<option value="spirit">Spirit</option>
-			<option value="recipe">Recipe</option>
-		</select>
-		<br>
-		<input type="submit" value="Add">
-	</form:form>
-	</div>
+	
+
 	<script type="text/javascript">
 		/* function commentButton() {
 			var x = document.getElementById("addComment");
@@ -249,21 +284,27 @@
 				x.style.display = "block";
 			}
 		} */
-		
+
 		//Array of images which you want to show: Use path you want.
-		var images=new Array('car1.jpeg','car2.jpeg','car3.jpeg');
-		var nextimage=0;
+		var images = new Array('car1.jpeg', 'car2.jpeg', 'car3.jpeg');
+		var nextimage = 0;
 		doSlideshow();
 
-		function doSlideshow(){
-		    if(nextimage>=images.length){nextimage=0;}
-		    $('.body')
-		    .css('background-image','url("'+images[nextimage++]+'")')
-		    .fadeIn(500,function(){
-		        setTimeout(doSlideshow,1000);
-		    });
+		function doSlideshow() {
+			if (nextimage >= images.length) {
+				nextimage = 0;
+			}
+			$('.body').css('background-image',
+					'url("' + images[nextimage++] + '")').fadeIn(500,
+					function() {
+						setTimeout(doSlideshow, 1000);
+					});
 		}
-		
 	</script>
+	  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>  
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+  <script src="./js/jquery.min.js" type="text/javascript"></script>
+<script src="./js/popper.min.js" type="text/javascript"></script>
+<script src="./js/bootstrap.min.js" type="text/javascript"></script>
 </body>
 </html>

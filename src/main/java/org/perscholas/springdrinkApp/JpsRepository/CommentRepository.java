@@ -3,7 +3,7 @@
  */
 package org.perscholas.springdrinkApp.JpsRepository;
 
-import java.util.ArrayList;
+import java.util.List;
 
 import org.perscholas.springdrinkApp.entity.Comment;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -14,7 +14,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
  */
 public interface CommentRepository extends JpaRepository<Comment, Long>{
 
-	ArrayList<Comment> findByalcoholId(Long id);
+	List<Comment> findByalcoholId(Long id);
 	
 	
 }

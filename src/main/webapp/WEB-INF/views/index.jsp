@@ -99,31 +99,10 @@ body {
 <title>SignIn</title>
 </head>
 <body>
+
 	<h2>Drink App</h2>
-	<%-- <p>Sign in</p>
+	
 	${msg }
-
-	<div>
-		<form:form action="signIn" method="post">
-			<label for="userName">Username:</label>
-			<input type="text" id="userName" name="userName">
-			<br>
-			<label for="password">Password:</label>
-			<input type="password" id="password" name="password">
-			<br>
-			<br>
-			<input type="submit" value="Sign In">
-		</form:form>
-
-		<form:form action="createAccount">
-
-			<input type="submit" value="Sign Up" />
-
-		</form:form>
-
-	</div> --%>
-
-
 	<div class="wrapper">
 		<div class="login-text">
 			<button class="dropdown">
@@ -153,26 +132,6 @@ body {
 		<div></div>
 	</div>
 
-	<%--  <div class="wrapper">
-  <div class="login-text">
-    <button class="dropdown"><i class="down"></i></button>
-    <div class="text">
-      <form:form action="signIn" method="post">
-			<label for="userName">Username:</label>
-			<input type="text" id="userName" name="userName">
-			<br>
-			<label for="password">Password:</label>
-			<input type="password" id="password" name="password">
-			<br>
-			<br>
-			<input type="submit" value="Sign In">
-		</form:form>
-   
-      
-    </div>
-  </div>
-
-  </div> --%>
 	<div class="wrapper2"></div>
 
 
@@ -194,5 +153,10 @@ body {
 			}
 		})
 	</script>
+	  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>  
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+  <script src="./js/jquery.min.js" type="text/javascript"></script>
+<script src="./js/popper.min.js" type="text/javascript"></script>
+<script src="./js/bootstrap.min.js" type="text/javascript"></script>
 </body>
 </html>
