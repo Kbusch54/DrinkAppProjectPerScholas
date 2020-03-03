@@ -58,14 +58,17 @@ body, html {
 			<form:form action="addAlcohols" method="get">
 				<div class="col-12 col-lg-6">
 
-					<label for="name">Name:<br></label> <input type="text" id="name"
-						name="name">
-				<br><br><br><br>
+					<label for="name">Name:<br></label> <input type="text"
+						id="name" name="name"> <br>
+					<br>
+					<br>
+					<br>
 				</div>
 				<div class="col-12 col-lg-6">
 					<label for="pic">Picture:</label> <input type="pic" id="pic"
-						name="pic">
-				<br><br><br>
+						name="pic"> <br>
+					<br>
+					<br>
 				</div>
 				<div class="col-12 col-lg-6">
 					<label for="type">Choose a type:</label> <select id="type"
@@ -73,35 +76,23 @@ body, html {
 						<option value="beer">Beer</option>
 						<option value="spirit">Spirit</option>
 						<option value="recipe">Recipe</option>
+						<option value="wine">Wine</option>
 					</select>
 				</div>
 				<div class="col-12 col-lg-6">
-					<label for="description">Description: <br></label> <input type="text"
-						id="description" name="description"
+					<label for="description">Description: <br></label> <input
+						type="text" id="description" name="description"
 						style="width: 70%; height: 70%;">
-						
+
 				</div>
 				<div class="col-12 col-lg-10"></div>
 				<div class="col-12 col-lg-2">
-				<input type="submit" value="Add Alcohol">
+					<input type="submit" value="Add Alcohol">
 				</div>
 			</form:form>
 
 		</div>
-
-
-
-
 	</div>
-
-
-
-
-
-
-
-
-
 
 </body>
 </html>

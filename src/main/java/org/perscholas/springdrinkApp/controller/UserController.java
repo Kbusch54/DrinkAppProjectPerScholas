@@ -85,4 +85,9 @@ public class UserController {
 		ModelAndView mav = new ModelAndView("addAlcohol");
 		return mav;
 	}
+	@RequestMapping("/logOut")
+	public ModelAndView logOut() {
+		ModelAndView mav = new ModelAndView("index");
+		return mav;
+	}
 }

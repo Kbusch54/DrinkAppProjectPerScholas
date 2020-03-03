@@ -5,29 +5,32 @@
 <!DOCTYPE html>
 <html>
 <head>
-<link href="./css/bootstrap.min.css" type="text/css" rel="stylesheet" />
-<script src="./js/jquery.min.js" type="text/javascript"></script>
-<script src="./js/popper.min.js" type="text/javascript"></script>
-<script src="./js/bootstrap.min.js" type="text/javascript"></script>
+<link href="/bootstrap/css/bootstrap.min.css" type="text/css" rel="stylesheet" />
+<script src="/bootstrap/js/jquery.min.js" type="text/javascript"></script>
+<script src="/bootstrap/js/popper.min.js" type="text/javascript"></script>
+<script src="/bootstrap/js/bootstrap.min.js" type="text/javascript"></script>
 <link rel="stylesheet"
 	href="https://use.fontawesome.com/releases/v5.3.1/css/all.css"
 	integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU"
 	crossorigin="anonymous">
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" />
 <style>
-.largeBox {
+.wrapper {
 	background-color: lightgrey;
-	width: 70%;
-	border: 10px solid green;
-	padding: 5%;
-	margin: 10%;
+	
+	border: 10px #90303d;
+	width:80%;
 	opacity: 0.7;
-	left: 50%;
+	
 }
 
 body, html {
 	height: 100%;
 	margin: 0;
+	background: linear-gradient(to left, #90303d, #ffd369);
 }
+
 
 .image {
 	background-image: url("car1.jpeg");
@@ -39,13 +42,19 @@ body, html {
 }
 
 .text {
-	top: 20%; text-align : center;
+	top: 25%;
+	text-align: center;
 	position: absolute;
 	left: 50%;
 	transform: translate(-50%, -50%);
 	color: white;
 	text-align: center;
 }
+.line {
+  border: 2px solid black;
+ 
+}
+
 
 .search {
 	width: 70%;
@@ -53,14 +62,14 @@ body, html {
 }
 
 .btn {
-	width: 15%;
+	width: 18%;
 	height: 10%;
 }
 
 .picBox {
 	background-color: lightgrey;
 	width: 50%;
-	border: 5px solid green;
+	
 	padding: 5%;
 	margin: 15%;
 }
@@ -74,8 +83,14 @@ body, html {
 	width: 100%;
 	height: 20%;
 }
+#des {
+  width: 30%;
+  height: 10%;
+  
+  align:center;
+}
 
-.name {
+#name {
 	background-color: lightgrey;
 	width: 60%;
 	padding: 1%;
@@ -103,12 +118,12 @@ body, html {
 <title>Insert title here</title>
 </head>
 <body>
-<%@include file="/html/header.html" %> 
+	<%@include file="/html/header.html"%>
 
 	<div class="image">
 		<div class="text">
 
-			<h1 style="color: white">Search</h1>
+			<h1>Search</h1>
 			<form action="searchMain">
 				<input type="text" placeholder="Search" name="alcohol"
 					class="search">
@@ -123,34 +138,72 @@ body, html {
 	<!--Start of box  -->
 	<c:forEach var="alcohol" items="${alc}">
 
-		<div class="largeBox">
-			<c:choose>
-				<c:when test="${alcohol.userId != null}">
-					<div class="name">
-						<a href="alcoholSelect?alcId=${alcohol.id }">${alcohol.name }</a>
-					</div>
-				</c:when>
-				<c:otherwise>
+		
+			<div class="container-fluid">
+					<div class="container">
+						<div class="row">
+							<div class="col-12 col-lg-7">
+								<h2><a href="alcoholSelect?alcId=${alcohol.id }">${alcohol.name }</a></h2>
+								Type:
+								${alcohol.type }
+							</div>
+							<div class="col-12 col-lg-3">
+							
+							</div>
+							<div class="col-12 col-lg-2">
+							Rating:
+								 <c:choose>
+          <c:when test = "${alcohol.getRating(alcohol.id)==5 }">
+           <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+         </c:when>
+         <c:when test = "${alcohol.getRating(alcohol.id)==4.5 }">
+          <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i>
+         </c:when>
+         <c:when test = "${alcohol.getRating(alcohol.id)==4 }">
+          <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="far fa-star"></i>
+         </c:when>
+         <c:when test = "${alcohol.getRating(alcohol.id)==3.5 }">
+          <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i><i class="far fa-star"></i>
+         </c:when>
+         <c:when test = "${alcohol.getRating(alcohol.id)==3}">
+           <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="far fa-star"></i><i class="far fa-star"></i>
+         </c:when>
+         <c:when test = "${alcohol.getRating(alcohol.id)==2.5}">
+           <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i><i class="far fa-star"></i><i class="far fa-star"></i>
+         </c:when>
+         <c:when test = "${alcohol.getRating(alcohol.id)==2}">
+           <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="far fa-star"></i><i class="far fa-star"></i><i class="far fa-star"></i>
+         </c:when>
+         <c:when test = "${alcohol.getRating(alcohol.id)==1.5 }">
+          <i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i><i class="far fa-star"></i><i class="far fa-star"></i><i class="far fa-star"></i>
+         </c:when>
+         
+         <c:when test = "${alcohol.getRating(alcohol.id)==1 }">
+          <i class="fas fa-star"></i> <i class="far fa-star"></i><i class="far fa-star"></i><i class="far fa-star"></i><i class="far fa-star"></i>
+         </c:when>
+         
+         <c:otherwise>
+            <i class="far fa-star"></i><i class="far fa-star"></i><i class="far fa-star"></i><i class="far fa-star"></i><i class="far fa-star"></i>
+         </c:otherwise>
+       </c:choose>
 
-				</c:otherwise>
-			</c:choose>
+</div>
+</div>
+</div>
 
-
-
-
-			<!-- fix -->
-			<a href="userPage?id=${alcohol.userId }">${alcohol.getUserName(alcohol.userId) }</a>
+		<c:choose>
+			<c:when test="${alcohol.userId !=null}">
+			<a href="userPage?id=${alcohol.userId }">User Page</a>
+			</c:when>
+		</c:choose>
 			<c:forEach var="star" items="${userRating}">
 			Star by User: ${star.number }	
 			</c:forEach>
-
-
-
-			<!-- Alcohol ratings  -->
-
-			<br> Star:${alcohol.getRating(alcohol.id) }
-			<div class="picBox">
-				<div class="pic">
+			<div class="container">
+						<div class="row">
+							<div class="col-12 col-lg-3"></div>
+							<div class="col-12 col-lg-6">
+			
 					<c:choose>
 						<c:when test="${alcohol.pic != null}">
 							<img src="${alcohol.pic }" class="alcoholPic">
@@ -160,119 +213,143 @@ body, html {
 						</c:otherwise>
 					</c:choose>
 
-				</div>
-			</div>
+				
+							</div>
+							<div class="col-12 col-lg-3"></div>
+      
+      </div>
+						</div>
+					
+				
+					<div class="container">
+						<div class="row">
+							<div class="col-12 col-lg-4"></div>
+							<div class="col-12 col-lg-8" id="des">
+							Description:
+								${alcohol.description}
+								</div>
+								<div class="col-12 col-lg-2">
+
+								</div>
+						</div>
+					</div>
+				
 
 
 
 
-			<div class="descr">${alcohol.description}</div>
-			
-			<!-- Likes -->
-			
-			
-			
+			<div class="container">
+						<div class="row">
+							<div class="col-12 col-lg-3">
+							<!-- Likes -->
 			<c:choose>
 				<c:when test="${like.get(alcohol.id) != null}">
-				<button onclick="removeLike"><i class="fas fa-heart"></i></button>
-							<!-- <img src="like.png" class="like"> -->
-			<form:form action="removeLike" method="get">
-				<label for="alchId">Alcohol</label>
-				<input type="hidden" id="alchId" name="alchId"
-					value="${alcohol.id }">
-				<input type="submit" value="removeLike">
-			</form:form>
-						</c:when>
+								<iframe name="unlikeFrame" id="unlikeFrame" style="display: none;">
+
+				</iframe>
+					
+					<form:form action="removeLike" method="get" target="unlikeFrame">
+						<label for="alchId">Alcohol</label>
+						<input type="hidden" id="alchId" name="alchId"
+							value="${alcohol.id }">
+						<button type="submit"><i class="fas fa-heart"></i></button>
+					</form:form>
+				</c:when>
 				<c:otherwise>
+						<iframe name="likeFrame" id="likeFrame" style="display: none;">
 
-				<button onclick="addLike"><i class="far fa-heart"></i></button>
-							<!-- <img src="nolike.png" class="like"> -->
-			<form:form action="addLike" method="get">
-				<label for="alchId">Alcohol</label>
-				<input type="hidden" id="alchId" name="alchId"
-					value="${alcohol.id }">
-				<input type="submit" value="add Like">
-			</form:form>
-						</c:otherwise>
+				</iframe>
+					
+					<!-- <img src="nolike.png" class="like"> -->
+					<form:form action="addLike" method="get" target="likeFrame">
+						<label for="alchId">Alcohol</label>
+						<input type="hidden" id="alchId" name="alchId"
+							value="${alcohol.id }">
+						<button type="submit"><i class="far fa-heart"></i></button>
+					</form:form>
+				</c:otherwise>
 			</c:choose>
-
-
 			<!--Alcohol Likes  -->
 			Likes:${alcohol.getLikes(alcohol.id) }
+							</div>
+							<div class="col-12 col-lg-6">
 
-			<c:choose>
+		<iframe name="ratingFrame" id="ratingFrame" style="display: none;">
+
+				</iframe>
+				<form:form action="setRating?alcId=${alcohol.id }" target="ratingFrame">
+					<label for="num">Choose a rating:</label>
+  <select id="num" name="num" size="5">
+    <option value="1">1</option>
+    <option value="2">2 </option>
+    <option value="3">3</option>
+    <option value="4">4</option>
+    <option value="5">5</option>
+  </select><br><br>
+  <input type="submit" value="Rate">
+				</form:form>
+			<%-- <c:choose>
 				<c:when test="${star.get(alcohol.id) != null}">
 							User rating: ${star.get(alcohol.id)}
 						</c:when>
 				<c:otherwise>
 							User Rating: 0
 						</c:otherwise>
-			</c:choose>
+			</c:choose> --%>
+									 <c:choose>
+          <c:when test = "${star.get(alcohol.id)==5 }">
+           User Rating: <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+         </c:when>
+         <c:when test = "${star.get(alcohol.id)==4.5 }">
+          User Rating: <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i>
+         </c:when>
+         <c:when test = "${star.get(alcohol.id)==4 }">
+         User Rating:  <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="far fa-star"></i>
+         </c:when>
+         <c:when test = "${star.get(alcohol.id)==3.5 }">
+          User Rating: <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i><i class="far fa-star"></i>
+         </c:when>
+         <c:when test = "${star.get(alcohol.id)==3}">
+          User Rating: <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="far fa-star"></i><i class="far fa-star"></i>
+         </c:when>
+         <c:when test = "${star.get(alcohol.id)==2.5}">
+          User Rating: <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i><i class="far fa-star"></i><i class="far fa-star"></i>
+         </c:when>
+         <c:when test = "${star.get(alcohol.id)==2}">
+           User Rating: <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="far fa-star"></i><i class="far fa-star"></i><i class="far fa-star"></i>
+         </c:when>
+         <c:when test = "${star.get(alcohol.id)==1.5 }">
+         User Rating: <i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i><i class="far fa-star"></i><i class="far fa-star"></i><i class="far fa-star"></i>
+         </c:when>
+         
+         <c:when test = "${star.get(alcohol.id)==1 }">
+         User Rating: <i class="fas fa-star"></i> <i class="far fa-star"></i><i class="far fa-star"></i><i class="far fa-star"></i><i class="far fa-star"></i>
+         </c:when>
+         
+         <c:otherwise>
+           User Rating: <i class="far fa-star"></i><i class="far fa-star"></i><i class="far fa-star"></i><i class="far fa-star"></i><i class="far fa-star"></i>
+         </c:otherwise>
+       </c:choose>
+							</div>
+							<div class="col-12 col-lg-3">
 			<!--Category search  -->
 			<c:choose>
 				<c:when test="${cate.get(alcohol.id) != null}">
-							Category:
-							 <a href="categorySearch?catName=${cate.get(alcohol.id)}">${cate.get(alcohol.id)}</a>
+							<h3>Category:</h3>
+							<h3> <a href="categorySearch?catName=${cate.get(alcohol.id)}">${cate.get(alcohol.id)}</a></h3>
 
 				</c:when>
 				<c:otherwise>
 							No Category
 						</c:otherwise>
 			</c:choose>
-			<%-- 
+							</div>
 
-
-			<!--Alcohol Comments  -->
-
-			<div class="comment">
-
-				<c:choose>
-
-					<c:when test="${commentText.get(alcohol.id) != null}">
-						${commentText.get(alcohol.id)}
-							<c:forEach items="${comments.get(alcohol.id)}" var="comm">
-							${comm.getAccount().getUser_Name()}
-							${comm.getText() }
-							</c:forEach>
-						
-					</c:when>
-					<c:otherwise>
-					No Comment
-					</c:otherwise>
-				</c:choose>
-
-
-
-				<!--New comment form  -->
-
-				<div>
-					New Comment
-					<iframe name="commentFrame" id="commentFrame" style="display: none;"></iframe>
-
-					<form action="addComment" target="commentFrame" method="get">
-						<!-- form body here -->
-						<label for="alchId">Alcohol</label> <input type="hidden"
-							id="alchId" name="alchId" value="${alcohol.id }"> <label
-							for="text">Text:</label> <input type="text" id="text" name="text">
-						<br> <input type="submit" value="Add Comment">
-					</form> --%>
-
-			<%-- <form:form action="addComment" method="get">
-						<label for="alchId">Alcohol</label>
-						<input type="hidden" id="alchId" name="alchId"
-							value="${alcohol.id }">
-						<label for="text">Text:</label>
-						<input type="text" id="text" name="text">
-						<br>
-						<input type="submit" value="Add Comment">
-					</form:form> --%>
 		</div>
-
-
+		</div>
+		<br><br><div class="line"></div><br><br><br>
+		</div>
 	</c:forEach>
-
-
-
 	
 
 	<script type="text/javascript">
@@ -301,10 +378,12 @@ body, html {
 					});
 		}
 	</script>
-	  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>  
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
-  <script src="./js/jquery.min.js" type="text/javascript"></script>
-<script src="./js/popper.min.js" type="text/javascript"></script>
-<script src="./js/bootstrap.min.js" type="text/javascript"></script>
+	<script
+		src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+	<script
+		src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+	<script src="./js/jquery.min.js" type="text/javascript"></script>
+	<script src="./js/popper.min.js" type="text/javascript"></script>
+	<script src="./js/bootstrap.min.js" type="text/javascript"></script>
 </body>
 </html>

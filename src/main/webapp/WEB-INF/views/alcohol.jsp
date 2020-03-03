@@ -104,7 +104,7 @@ body, html {
 }
 </style>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>Alcohol</title>
 </head>
 <body>
 <%@include file="/html/header.html" %> 
@@ -153,9 +153,9 @@ body, html {
 		</c:choose>
 		<!--Category search  -->
 		<c:choose>
-			<c:when test="${cate.get(alcohol.id) != null}">
+			<c:when test="${cate.name != null}">
 							Category:
-							 <a href="categorySearch?catName=${cate.get(alcohol.id)}">${cate.get(alcohol.id)}</a>
+							 <a href="categorySearch?catName=${cate.name}">${cate.name}</a>
 
 			</c:when>
 			<c:otherwise>
@@ -165,7 +165,7 @@ body, html {
 
 		<div class="name">
 			<H2>${alcohol.name }</H2>
-			${alcohol.id }
+			
 		</div>
 
 		<div class="descr">${alcohol.description}</div>
@@ -175,36 +175,43 @@ body, html {
 
 
 
-		<!-- Alcohol ratings  -->
+		<!-- Alcohol Like  -->
 
-		<br> Star:${alcohol.getRating(alcohol.id) }
-		<button onclick="addLike"></button>
-		<form:form action="addLike" method="get">
-			<label for="alchId">Alcohol</label>
-			<input type="hidden" id="alchId" name="alchId" value="${alcohol.id }">
-			<input type="submit" value="add Like">
-		</form:form>
-		<c:choose>
-			<c:when test="${like.get(alcohol.id) != null}">
-							User like: ${like.get(alcohol.id)}
-						</c:when>
-			<c:otherwise>
-							User Likes: 0
-						</c:otherwise>
-		</c:choose>
+		
+			<c:choose>
+				<c:when test="${like.get(alcohol.id) != null}">
+								<iframe name="unlikeFrame" id="unlikeFrame" style="display: none;">
+
+				</iframe>
+					
+					<form:form action="removeLike" method="get" target="unlikeFrame">
+						<label for="alchId">Alcohol</label>
+						<input type="hidden" id="alchId" name="alchId"
+							value="${alcohol.id }">
+						<button type="submit"><i class="fas fa-heart"></i></button>
+					</form:form>
+				</c:when>
+				<c:otherwise>
+						<iframe name="likeFrame" id="likeFrame" style="display: none;">
+
+				</iframe>
+					
+					<!-- <img src="nolike.png" class="like"> -->
+					<form:form action="addLike" method="get" target="likeFrame">
+						<label for="alchId">Alcohol</label>
+						<input type="hidden" id="alchId" name="alchId"
+							value="${alcohol.id }">
+						<button type="submit"><i class="far fa-heart"></i></button>
+					</form:form>
+				</c:otherwise>
+			</c:choose>
+		
 
 
 		<!--Alcohol Likes  -->
 
 		Likes:${alcohol.getLikes(alcohol.id) }
-		<c:choose>
-			<c:when test="${star.get(alcohol.id) != null}">
-							User rating: ${star.get(alcohol.id)}
-						</c:when>
-			<c:otherwise>
-							User Rating: 0
-						</c:otherwise>
-		</c:choose>
+		
 
 
 
@@ -241,8 +248,9 @@ body, html {
 
 			<div>
 				New Comment
-				<iframe name="commentFrame" id="commentFrame" style="display: none;"></iframe>
+				<iframe name="commentFrame" id="commentFrame" style="display: none;">
 
+				</iframe>
 				<form action="addComment" target="commentFrame" method="get">
 					<!-- form body here -->
 					<label for="alchId">Alcohol</label> <input type="hidden"

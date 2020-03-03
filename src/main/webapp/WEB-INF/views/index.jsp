@@ -8,6 +8,10 @@
 	href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
 	integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh"
 	crossorigin="anonymous">
+	<link rel="stylesheet"
+	href="https://use.fontawesome.com/releases/v5.3.1/css/all.css"
+	integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU"
+	crossorigin="anonymous">
 <head>
 <style>
 body {
@@ -100,7 +104,7 @@ body {
 </head>
 <body>
 
-	<h2>Drink App</h2>
+	<h2>Cocktail Hero</h2>
 	
 	${msg }
 	<div class="wrapper">
@@ -125,14 +129,21 @@ body {
 		</div>
 		<div class="call-text">
 			<h1>
-				Have A Drink <span>ON</span> US
+				Have A Drink <span>On</span> Us
 			</h1>
 			<a href="createAccount">Create an Account</a>
+			<br><br>
+			<button onclick="myFunction()"><i class="fas fa-chevron-circle-down"></i></button>
+			<br><br>
+			<p id="mp" style="display:none">You have heard of Alcoholics anonymous well we are alcohol enthusiasts. Here you can search through our 
+			database to find your favorite drink or recipe, whether ye be a beer drinker or a whiskey sipper this is the place for you. 
+			Thanks to our community our database is always growing, and changes always coming. Don't see something you like add it. So what
+			are you waiting for create an account sign in and have a drink on us.</p>
 		</div>
 		<div></div>
 	</div>
 
-	<div class="wrapper2"></div>
+
 
 
 	<script>
@@ -152,6 +163,14 @@ body {
 				check = 0;
 			}
 		})
+		function myFunction() {
+  var x = document.getElementById("mp");
+  if (x.style.display === "none") {
+    x.style.display = "block";
+  } else {
+    x.style.display = "none";
+  }
+}
 	</script>
 	  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>  
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
