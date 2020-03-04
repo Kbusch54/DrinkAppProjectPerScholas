@@ -22,5 +22,6 @@ public interface LikeRepository extends JpaRepository<Like, Long>{
 	Like findByuserIdAndAlcoholId(Long id, Long alcId);
 	@Query(value="Delete * from Likes where Likes.user_Id = ?1 AND Likes.alcohol_id = ?2", nativeQuery=true)
 	void RemoveByuserIdAndAlcoholId(Long id, Long alcId);
+	
 
 }
