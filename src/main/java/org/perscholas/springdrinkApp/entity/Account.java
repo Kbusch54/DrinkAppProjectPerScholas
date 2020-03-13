@@ -18,10 +18,13 @@ import javax.persistence.TemporalType;
 /**
  * The persistent class for the ACCOUNT database table.
  * 
+ * @author kevinbusch Filename: Account.java 02/26/2020
  */
+
 @Entity
 @Table(name="Account")
 public class Account implements Serializable {
+
 	private static final long serialVersionUID = 1L;
 
 	@Id
@@ -77,6 +80,41 @@ public class Account implements Serializable {
 	private List<Star> stars;
 
 	public Account() {
+	}
+	/**
+	 * @param id
+	 * @param bio
+	 * @param dateAdded
+	 * @param email
+	 * @param fName
+	 * @param isAdmin
+	 * @param lName
+	 * @param password
+	 * @param picture
+	 * @param userName
+	 * @param alcohols
+	 * @param comments
+	 * @param likes
+	 * @param stars
+	 */
+	public Account(long id, String bio, Date dateAdded, String email, String fName, boolean isAdmin, String lName,
+			String password, String picture, String userName, List<Alcohol> alcohols, List<Comment> comments,
+			List<Like> likes, List<Star> stars) {
+		super();
+		this.id = id;
+		this.bio = bio;
+		this.dateAdded = dateAdded;
+		this.email = email;
+		this.fName = fName;
+		this.isAdmin = isAdmin;
+		this.lName = lName;
+		this.password = password;
+		this.picture = picture;
+		this.userName = userName;
+		this.alcohols = alcohols;
+		this.comments = comments;
+		this.likes = likes;
+		this.stars = stars;
 	}
 
 	public long getId() {
@@ -272,6 +310,9 @@ public class Account implements Serializable {
 				+ likes.toString() + ", stars=" + stars + "]";
 	}
 
+	/**
+	 *
+	 */
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -293,6 +334,9 @@ public class Account implements Serializable {
 		return result;
 	}
 
+	/**
+	 *
+	 */
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)

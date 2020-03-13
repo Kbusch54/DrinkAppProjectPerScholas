@@ -5,7 +5,7 @@ import javax.persistence.*;
 
 /**
  * The persistent class for the stars database table.
- * 
+ *  @author kevinbusch Filename: Star.java 02/26/2020
  */
 @Entity
 @Table(name = "stars")
@@ -37,6 +37,26 @@ public class Star implements Serializable {
 
 	public Star() {
 	}
+	
+
+	/**
+	 * @param id
+	 * @param alcoholId
+	 * @param number
+	 * @param userId
+	 * @param account
+	 * @param alcohol
+	 */
+	public Star(Long id, Long alcoholId, int number, Long userId, Account account, Alcohol alcohol) {
+		super();
+		this.id = id;
+		this.alcoholId = alcoholId;
+		this.number = number;
+		this.userId = userId;
+		this.account = account;
+		this.alcohol = alcohol;
+	}
+
 
 	public Long getAlcoholId() {
 		return this.alcoholId;

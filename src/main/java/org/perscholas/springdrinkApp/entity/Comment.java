@@ -10,6 +10,7 @@ import java.util.List;
 /**
  * The persistent class for the comments database table.
  * 
+ * @author kevinbusch Filename: Comment.java 02/26/2020
  */
 @Entity
 @Table(name = "comments")
@@ -45,6 +46,29 @@ public class Comment implements Serializable {
 
 	public Comment() {
 	}
+	
+
+	/**
+	 * @param id
+	 * @param alcoholId
+	 * @param text
+	 * @param userId
+	 * @param account
+	 * @param alcohol
+	 * @param likes
+	 */
+	public Comment(Long id, Long alcoholId, String text, Long userId, Account account, Alcohol alcohol,
+			List<Like> likes) {
+		super();
+		this.id = id;
+		this.alcoholId = alcoholId;
+		this.text = text;
+		this.userId = userId;
+		this.account = account;
+		this.alcohol = alcohol;
+		this.likes = likes;
+	}
+
 
 	public Long getId() {
 		return this.id;

@@ -7,7 +7,9 @@ import java.util.List;
 /**
  * The persistent class for the category database table.
  * 
+ * @author kevinbusch Filename: Category.java 02/26/2020
  */
+
 @Entity
 @Table(name="category")
 public class Category implements Serializable {
@@ -26,6 +28,20 @@ public class Category implements Serializable {
 
 	public Category() {
 	}
+	
+
+	/**
+	 * @param id
+	 * @param name
+	 * @param alcohols
+	 */
+	public Category(Long id, String name, List<Alcohol> alcohols) {
+		super();
+		this.id = id;
+		this.name = name;
+		this.alcohols = alcohols;
+	}
+
 
 	public Long getId() {
 		return this.id;

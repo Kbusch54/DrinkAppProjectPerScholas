@@ -6,7 +6,9 @@ import javax.persistence.*;
 /**
  * The persistent class for the likes database table.
  * 
+ * @author kevinbusch Filename: Like.java 02/26/2020
  */
+
 @Entity
 @Table(name = "likes")
 public class Like implements Serializable {
@@ -44,6 +46,29 @@ public class Like implements Serializable {
 
 	public Like() {
 	}
+	
+
+	/**
+	 * @param id
+	 * @param alcoholId
+	 * @param userId
+	 * @param commentId
+	 * @param account
+	 * @param alcohol
+	 * @param comment
+	 */
+	public Like(Long id, Long alcoholId, Long userId, Long commentId, Account account, Alcohol alcohol,
+			Comment comment) {
+		super();
+		this.id = id;
+		this.alcoholId = alcoholId;
+		this.userId = userId;
+		this.commentId = commentId;
+		this.account = account;
+		this.alcohol = alcohol;
+		this.comment = comment;
+	}
+
 
 	public Long getId() {
 		return this.id;

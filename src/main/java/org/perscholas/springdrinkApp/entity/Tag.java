@@ -6,7 +6,7 @@ import java.util.List;
 
 /**
  * The persistent class for the tags database table.
- * 
+ *  @author kevinbusch Filename: Tag.java 02/26/2020
  */
 @Entity
 @Table(name = "tags")
@@ -27,6 +27,20 @@ public class Tag implements Serializable {
 	
 	public Tag() {
 	}
+	
+
+	/**
+	 * @param id
+	 * @param name
+	 * @param alcohols
+	 */
+	public Tag(Long id, String name, List<Alcohol> alcohols) {
+		super();
+		this.id = id;
+		this.name = name;
+		this.alcohols = alcohols;
+	}
+
 
 	public Long getId() {
 		return this.id;

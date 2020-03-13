@@ -18,8 +18,10 @@ import javax.persistence.TemporalType;
 
 /**
  * The persistent class for the alcohol database table.
- * 
+ *
+ * @author kevinbusch Filename: Alcohol.java 02/26/2020
  */
+
 
 @Entity
 @Table(name="Alcohol")
@@ -80,6 +82,46 @@ public class Alcohol implements Serializable {
 	
 	public Alcohol() {
 	}
+	
+
+	/**
+	 * @param id
+	 * @param approved
+	 * @param catId
+	 * @param dateAdded
+	 * @param description
+	 * @param name
+	 * @param pic
+	 * @param type
+	 * @param userId
+	 * @param account
+	 * @param category
+	 * @param comments
+	 * @param likes
+	 * @param stars
+	 * @param tags
+	 */
+	public Alcohol(Long id, boolean approved, Long catId, Date dateAdded, String description, String name, String pic,
+			String type, Long userId, Account account, Category category, List<Comment> comments, List<Like> likes,
+			List<Star> stars, List<Tag> tags) {
+		super();
+		this.id = id;
+		this.approved = approved;
+		this.catId = catId;
+		this.dateAdded = dateAdded;
+		this.description = description;
+		this.name = name;
+		this.pic = pic;
+		this.type = type;
+		this.userId = userId;
+		this.account = account;
+		this.category = category;
+		this.comments = comments;
+		this.likes = likes;
+		this.stars = stars;
+		this.tags = tags;
+	}
+
 
 	public Long getId() {
 		return this.id;
